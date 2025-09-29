@@ -1,0 +1,42 @@
+services:
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: Kry765
+      MONGO_INITDB_ROOT_PASSWORD: admin1admin1
+    ports: 
+      - "27017:27017"
+    volumes:
+      - db-data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081" # Poprawiony port
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb # Poprawiona literówka
+      ME_CONFIG_MONGODB_AUTH_USERNAME: Kry765
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: admin1admin1
+      ME_CONFIG_BASICAUTH_ENABLED: "true"
+      ME_CONFIG_BASICAUTH_USERNAME: mongoexpressuser # Domyślna nazwa użytkownika
+      ME_CONFIG_BASICAUTH_PASSWORD: mongoexpresspass # Domyślne hasło
+    depends_on:
+      - mongodb
+
+  react-app:
+    build:
+      context: ./frontend
+    restart: always
+    ports: 
+      - "5173:5173"
+    volumes: 
+      - ./frontend:/app
+      - /app/node_modules
+    command: yarn dev --host 0.0.0.0
+
+volumes:
+  db-data:

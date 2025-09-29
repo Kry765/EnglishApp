@@ -1,0 +1,20 @@
+[
+    {
+        "link": "/aboutme",
+        "label": "Offer"
+    },
+    {
+        "link": "/offerts",
+        "label": "Contact"
+    },
+    {
+        "link": "/login",
+        "label": "Log in"
+    },
+    {
+        "link": "signup",
+        "label": "Sign up"
+    }
+
+    
+]
